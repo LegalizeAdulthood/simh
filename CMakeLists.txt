@@ -13,7 +13,7 @@ set(BUILD_ALL OFF CACHE BOOL "Initial default: build all simulators")
 set(ENABLE_ASYNC ON CACHE BOOL "Enable asynchronous I/O support")
 set(ENABLE_GRAPHICS ON CACHE BOOL "Initial default: enable graphics support")
 set(ENABLE_NETWORK ON CACHE BOOL "Initial default: enable network support")
-set(EXECUTABLE_PREFIX "simh-" CACHE STRING "Prefix for simulator executables")
+set(EXECUTABLE_PREFIX "simx-" CACHE STRING "Prefix for simulator executables")
 
 # Find system libraries
 find_library(LIBM_LIBRARIES m)
