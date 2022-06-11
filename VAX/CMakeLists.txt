@@ -30,13 +30,6 @@ function(add_vax_simulator NAME)
   endif()
 endfunction()
 
-# DEC Massbus common bits
-set(VAX_MASSBUS_SOURCES
-  vax7x0_mba.c
-  ../PDP11/pdp11_rp.c
-  ../PDP11/pdp11_tu.c
-  )
-
 # Common bits for bus-based machines
 set(VAX_BUS_SOURCES
   ../PDP11/pdp11_rl.c
@@ -309,6 +302,13 @@ set(VAX7XX_SOURCES
   ${VAX_UNIBUS_SOURCES}
   )
 
+# DEC VAX7XX - Massbus common bits
+set(VAX7XX_MASSBUS_SOURCES
+  vax7x0_mba.c
+  ../PDP11/pdp11_rp.c
+  ../PDP11/pdp11_tu.c
+  )
+
 # VAX730 - DEC VAX 11/730
 set(VAX730_DEFINITIONS
   VAX_730
@@ -330,7 +330,7 @@ set(VAX750_DEFINITIONS
   )
 set(VAX750_SOURCES
   ${VAX7XX_SOURCES}
-  ${VAX_MASSBUS_SOURCES}
+  ${VAX7XX_MASSBUS_SOURCES}
   vax750_cmi.c
   vax750_mem.c
   vax750_stddev.c
@@ -345,7 +345,7 @@ set(VAX780_DEFINITIONS
   )
 set(VAX780_SOURCES
   ${VAX7XX_SOURCES}
-  ${VAX_MASSBUS_SOURCES}
+  ${VAX7XX_MASSBUS_SOURCES}
   vax780_fload.c
   vax780_mem.c
   vax780_sbi.c
@@ -376,7 +376,7 @@ set(VAX860_DEFINITIONS
   )
 set(VAX860_SOURCES
   ${VAX7XX_SOURCES}
-  ${VAX_MASSBUS_SOURCES}
+  ${VAX7XX_MASSBUS_SOURCES}
   vax780_uba.c
   vax860_abus.c
   vax860_sbia.c
