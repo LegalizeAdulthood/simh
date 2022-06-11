@@ -6,6 +6,7 @@ set(BESM6_SOURCES
   besm6_cpu.c
   besm6_disk.c
   besm6_drum.c
+  besm6_mg.c
   besm6_mmu.c
   besm6_panel.c
   besm6_pl.c

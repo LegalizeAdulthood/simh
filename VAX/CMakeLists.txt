@@ -67,6 +67,7 @@ set(VAX_UNIBUS_SOURCES
   ../PDP11/pdp11_dmc.c
   ../PDP11/pdp11_tc.c
   ../PDP11/pdp11_rk.c
+  ../PDP11/pdp11_dup.c
   )
 
 # Common definitions for VAX4XX variants
@@ -269,6 +270,7 @@ set(VAX630_SOURCES
   vax630_stddev.c
   vax630_sysdev.c
   vax630_syslist.c
+  ../PDP11/pdp11_dup.c
   )
 add_vax_simulator(vax630)
 add_simulator_graphics(vax630)
@@ -296,6 +298,7 @@ set(VAX650_SOURCES
   vax_stddev.c
   vax_sysdev.c
   vax_syslist.c
+  ../PDP11/pdp11_dup.c
   )
 add_vax_simulator(vax650)
 add_simulator_graphics(vax650)
