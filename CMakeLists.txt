@@ -260,7 +260,7 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 
 ## The default runtime output directory is the BIN subdirectory in the source tree's top
-set(SIMH_LEGACY_INSTALL "${CMAKE_SOURCE_DIR}/BIN")
+set(SIMH_LEGACY_INSTALL "${CMAKE_SOURCE_DIR}/BIN" CACHE PATH "Default location for built simulators")
 if (WIN32)
     string(APPEND SIMH_LEGACY_INSTALL "/Win32")
 endif()
