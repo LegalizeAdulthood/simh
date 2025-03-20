@@ -26,6 +26,7 @@ if (WITH_NETWORK)
     "${CMAKE_SOURCE_DIR}/slirp_glue/sim_slirp.c")
 
   add_library(slirp STATIC "${SLIRP_SOURCES}")
+  target_folder(slirp "Libraries")
   target_compile_definitions(slirp
     PRIVATE
         HAVE_SLIRP_NETWORK

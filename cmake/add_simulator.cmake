@@ -20,6 +20,7 @@ add_custom_target(update_sim_commit ALL
     WORKING_DIRECTORY
         ${CMAKE_SOURCE_DIR}
 )
+target_folder(update_sim_commit "Tools")
 
 ## Simulator sources and library:
 set(SIM_SOURCES
@@ -49,9 +50,11 @@ function(build_simcore _targ)
 
     # Additional library targets that depend on simulator I/O:
     add_library(${_targ} STATIC ${SIM_SOURCES})
+    target_folder(${_targ} "Libraries")
 
     set(sim_aio_lib "${_targ}_aio")
     add_library(${sim_aio_lib} STATIC ${SIM_SOURCES})
+    target_folder(${sim_aio_lib} "Libraries")
 
     # Components that need to be turned on while building the library, but
     # don't export out to the dependencies (hence PRIVATE.)
@@ -197,6 +200,7 @@ function (simh_executable_template _targ)
     set_target_properties(${_targ} PROPERTIES
         C_STANDARD 99
         RUNTIME_OUTPUT_DIRECTORY ${SIMH_LEGACY_INSTALL}
+        FOLDER "Simulators"
     )
     target_compile_options(${_targ} PRIVATE ${EXTRA_TARGET_CFLAGS})
     target_link_options(${_targ} PRIVATE ${EXTRA_TARGET_LFLAGS})
@@ -429,6 +433,7 @@ if (NOT DONT_USE_ROMS)
         COMMAND BuildROMS
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
+    target_folder(BuildROMs "Tools")
 endif ()
 
 ## Front panel test.
@@ -453,3 +458,4 @@ if (WIN32)
             target_link_options(frontpaneltest PUBLIC "-mconsole")
     endif ()
 endif (WIN32)
+target_folder(frontpaneltest "Tests")
