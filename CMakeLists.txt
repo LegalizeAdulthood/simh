@@ -82,6 +82,7 @@ endif()
 
 project(simh VERSION "${SIMH_VERSION}" LANGUAGES C CXX)
 
+include(target_folder)
 include(vcpkg-setup)
 include(GNUInstallDirs)
 
