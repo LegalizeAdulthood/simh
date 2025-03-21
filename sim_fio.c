@@ -139,8 +139,8 @@ for (j = 0, dptr = sptr = (unsigned char *) bptr;       /* loop on items */
      j < count; j++) {
     for (k = (int32)(size - 1); k >= (((int32) size + 1) / 2); k--) {
         by = *sptr;                                     /* swap end-for-end */
-        *sptr++ = *(dptr + k);
-        *(dptr + k) = by;
+        *sptr++ = dptr[k];
+        dptr[k] = by;
         }
     sptr = dptr = dptr + size;                          /* next item */
     }
