@@ -11,7 +11,8 @@ libtool
 #
 # libsystemd
 #
-python3.10-venv
+# The following package isn't avilable on github ubuntu-latest (24.04) runners
+# python3.10-venv
 #
 # simh
 #
