@@ -40,3 +40,11 @@ jobs:
       run: |
         cmake --version
         cmake --workflow --preset release
+
+    - name: Upload zip package artifacts
+      uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4.0.0
+      if: ${{matrix.os == 'windows-latest'}}
+      with:
+        name: Zip-${{matrix.preset}}
+        path: ${{github.workspace}}/build-simh-release/*.zip
+        compression-level: 0
