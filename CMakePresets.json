@@ -13,6 +13,12 @@
       "binaryDir": "${sourceDir}/../build-${sourceDirName}-${presetName}"
     },
     {
+      "name": "subdir-build-preset",
+      "hidden": true,
+      "description": "Use a subdirectory for the build based on the preset name",
+      "binaryDir": "${sourceDir}/build-${sourceDirName}-${presetName}"
+    },
+    {
       "name": "simh-using-vcpkg",
       "hidden": true,
       "environment": {
@@ -27,7 +33,7 @@
     {
       "name": "release",
       "displayName": "Configure with release settings",
-      "inherits": [ "sibling-build-preset", "simh-using-vcpkg" ],
+      "inherits": [ "subdir-build-preset", "simh-using-vcpkg" ],
       "cacheVariables": {
         "CMAKE_BUID_TYPE": "Release"
       }
