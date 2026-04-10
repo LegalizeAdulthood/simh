@@ -8,6 +8,7 @@ autoconf
 autoconf-archive
 automake
 libtool
+libltdl-dev
 #
 # libsystemd
 #
