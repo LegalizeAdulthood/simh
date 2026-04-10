@@ -16,4 +16,4 @@ python3.10-venv
 # simh
 #
 libpcap-dev
-vdeplug
+libvdeplug-dev
