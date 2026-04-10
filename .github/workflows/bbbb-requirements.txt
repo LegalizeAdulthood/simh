@@ -1,0 +1,19 @@
+# Install dependencies with:
+# sed '/#/d' .github/workflows/bbbb-requirements.txt \
+# | xargs sudo apt-get install --no-install-recommends -y
+#
+# libxcrypt
+#
+autoconf
+autoconf-archive
+automake
+libtool
+#
+# libsystemd
+#
+python3.10-venv
+#
+# simh
+#
+libpcap-dev
+vdeplug
