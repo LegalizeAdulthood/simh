@@ -10,9 +10,11 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ windows-latest ]
+        os: [ ubuntu-latest, windows-latest ]
         # os: [ ubuntu-latest, windows-latest, macos-latest ]
         include:
+          - os: ubuntu-latest
+            workflow-preset: release-linux
           - os: windows-latest
             workflow-preset: release-windows
 
@@ -50,4 +52,12 @@ jobs:
       with:
         archive: false
         path: ${{github.workspace}}/build-simh-release/*.zip
+        compression-level: 0
+
+    - name: Upload tgz package artifacts
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+      if: ${{matrix.os == 'ubuntu-latest'}}
+      with:
+        archive: false
+        path: ${{github.workspace}}/build-simh-release/*.tgz
         compression-level: 0
