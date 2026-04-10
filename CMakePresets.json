@@ -75,7 +75,23 @@
           "name": "simh-vax[0-9]*$"
         }
       }
+    },
+    {
+      "name": "release-linux",
+      "displayName": "Test with linux release settings",
+      "description": "Skips some tests that are failing a diagnostic",
+      "configurePreset": "release",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      },
+      "filter": {
+        "exclude": {
+          "name": "simh-(vax[0-9]*|sel32)$"
+        }
+      }
     }
+
   ],
   "packagePresets": [
     {
@@ -85,7 +101,13 @@
       "generators": [ "ZIP" ]
     },
     {
-      "name": "release",
+      "name": "release-linux",
+      "displayName": "Package with release settings",
+      "configurePreset": "release",
+      "generators": [ "TGZ" ]
+    },
+    {
+      "name": "release-windows",
       "displayName": "Package with release settings",
       "configurePreset": "release",
       "generators": [ "ZIP" ]
@@ -111,8 +133,30 @@
       ]
     },
     {
-      "name": "release",
-      "displayName": "Workflow with Release settings: configure, build, test and package",
+      "name": "release-linux",
+      "displayName": "Workflow with linux Release settings: configure, build, test and package",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "release"
+        },
+        {
+          "type": "build",
+          "name": "release"
+        },
+        {
+          "type": "test",
+          "name": "release-linux"
+        },
+        {
+          "type": "package",
+          "name": "release-linux"
+        }
+      ]
+    },
+    {
+      "name": "release-windows",
+      "displayName": "Workflow with Windows Release settings: configure, build, test and package",
       "steps": [
         {
           "type": "configure",
@@ -128,7 +172,7 @@
         },
         {
           "type": "package",
-          "name": "release"
+          "name": "release-windows"
         }
       ]
     }
