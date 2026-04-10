@@ -60,5 +60,5 @@ jobs:
       if: ${{matrix.os == 'ubuntu-latest'}}
       with:
         archive: false
-        path: ${{github.workspace}}/build-simh-release/*.tgz
+        path: ${{github.workspace}}/build-simh-release/*.tar.gz
         compression-level: 0
