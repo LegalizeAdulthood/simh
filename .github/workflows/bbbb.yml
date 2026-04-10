@@ -26,15 +26,16 @@ jobs:
       with:
         submodules: true
 
-    #- name: Install Prerequisites Linux
-    #  if: ${{matrix.os == 'ubuntu-latest'}}
-    #  shell: bash
-    #  env:
-    #    DEBIAN_FRONTEND: noninteractive
-    #  run: |
-    #    ${{github.workspace}}/vcpkg/bootstrap-vcpkg.sh
-    #    echo "man-db man-db/auto-update boolean false" | sudo debconf-set-selections
-    #    sudo dpkg-reconfigure man-db
+    - name: Install Prerequisites Linux
+      if: ${{matrix.os == 'ubuntu-latest'}}
+      shell: bash
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        echo "man-db man-db/auto-update boolean false" | sudo debconf-set-selections
+        sudo dpkg-reconfigure man-db
+        sudo apt-get update
+        sed 's/#.*//' ${{github.workspace}}/.github/workflows/bbbb-requirements.txt | xargs sudo apt-get install
 
     - name: Setup CMake
       uses: jwlawson/actions-setup-cmake@0d6a7d60b009d01c9e7523be22153ff8f19460d3 # v2.2.0
