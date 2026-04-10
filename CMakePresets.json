@@ -23,6 +23,14 @@
       "name": "default",
       "displayName": "Configure with default settings",
       "inherits": [ "sibling-build-preset", "simh-using-vcpkg" ]
+    },
+    {
+      "name": "release",
+      "displayName": "Configure with release settings",
+      "inherits": [ "sibling-build-preset", "simh-using-vcpkg" ],
+      "cacheVariables": {
+        "CMAKE_BUID_TYPE": "Release"
+      }
     }
   ],
   "buildPresets": [
@@ -30,6 +38,12 @@
       "name": "default",
       "displayName": "Build with default settings",
       "configurePreset": "default"
+    },
+    {
+      "name": "release",
+      "displayName": "Build with release settings",
+      "configurePreset": "release",
+      "configuration": "Release"
     }
   ],
   "testPresets": [
@@ -40,6 +54,35 @@
       "output": {
         "outputOnFailure": true
       }
+    },
+    {
+      "name": "release",
+      "displayName": "Test with release settings",
+      "description": "Skips some vax tests that are failing a diagnostic",
+      "configurePreset": "release",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      },
+      "filter": {
+        "exclude": {
+          "name": "simh-vax[0-9]*$"
+        }
+      }
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "default",
+      "displayName": "Package with default settings",
+      "configurePreset": "default",
+      "generators": [ "ZIP" ]
+    },
+    {
+      "name": "release",
+      "displayName": "Package with release settings",
+      "configurePreset": "release",
+      "generators": [ "ZIP" ]
     }
   ],
   "workflowPresets": [
@@ -58,6 +101,28 @@
         {
           "type": "test",
           "name": "default"
+        }
+      ]
+    },
+    {
+      "name": "release",
+      "displayName": "Workflow with Release settings: configure, build, test and package",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "release"
+        },
+        {
+          "type": "build",
+          "name": "release"
+        },
+        {
+          "type": "test",
+          "name": "release"
+        },
+        {
+          "type": "package",
+          "name": "release"
         }
       ]
     }
