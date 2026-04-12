@@ -13,12 +13,6 @@
       "binaryDir": "${sourceDir}/../build-${sourceDirName}-${presetName}"
     },
     {
-      "name": "subdir-build-preset",
-      "hidden": true,
-      "description": "Use a subdirectory for the build based on the preset name",
-      "binaryDir": "${sourceDir}/build-${sourceDirName}-${presetName}"
-    },
-    {
       "name": "simh-using-vcpkg",
       "hidden": true,
       "environment": {
@@ -26,17 +20,36 @@
       }
     },
     {
+      "name": "settings",
+      "hidden": true,
+      "displayName": "Common configure settings",
+      "inherits": [ "sibling-build-preset", "simh-using-vcpkg" ]
+    },
+    {
+      "name": "debug-build",
+      "hidden": true,
+      "description": "Set the build type to Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release-build",
+      "hidden": true,
+      "description": "Set the build type to Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
       "name": "default",
       "displayName": "Configure with default settings",
-      "inherits": [ "sibling-build-preset", "simh-using-vcpkg" ]
+      "inherits": [ "settings", "debug-build" ]
     },
     {
       "name": "release",
       "displayName": "Configure with release settings",
-      "inherits": [ "subdir-build-preset", "simh-using-vcpkg" ],
-      "cacheVariables": {
-        "CMAKE_BUID_TYPE": "Release"
-      }
+      "inherits": [ "settings", "release-build" ]
     }
   ],
   "buildPresets": [
@@ -64,21 +77,6 @@
     {
       "name": "release",
       "displayName": "Test with release settings",
-      "description": "Skips some vax tests that are failing a diagnostic",
-      "configurePreset": "release",
-      "configuration": "Release",
-      "output": {
-        "outputOnFailure": true
-      },
-      "filter": {
-        "exclude": {
-          "name": "simh-vax[0-9]*$"
-        }
-      }
-    },
-    {
-      "name": "release-linux",
-      "displayName": "Test with linux release settings",
       "description": "Skips some tests that are failing a diagnostic",
       "configurePreset": "release",
       "configuration": "Release",
@@ -91,7 +89,6 @@
         }
       }
     }
-
   ],
   "packagePresets": [
     {
@@ -146,7 +143,7 @@
         },
         {
           "type": "test",
-          "name": "release-linux"
+          "name": "release"
         },
         {
           "type": "package",
