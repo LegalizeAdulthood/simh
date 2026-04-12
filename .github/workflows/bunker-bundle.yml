@@ -2,9 +2,9 @@ name: Beehive Bit Bunker Bundle
 
 on:
   push:
-    branches: [ "bbbb" ]
+    branches: [ "bunker-bundle" ]
   pull_request:
-    branches: [ "bbbb" ]
+    branches: [ "bunker-bundle" ]
 
 jobs:
   build:
