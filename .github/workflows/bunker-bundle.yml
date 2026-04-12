@@ -15,16 +15,16 @@ jobs:
         include:
           #- os: macos-latest
           #  cp: cp
-          #  path: /build-simtools-release/
+          #  path: /build-simh-release/
           #  pkg-ext: tar.gz
           - os: ubuntu-latest
             cp: cp
-            path: /build-simtools-release/
+            path: /build-simh-release/
             pkg-ext: tar.gz
             preset: release-linux
           - os: windows-latest
             cp: copy
-            path: \build-simtools-release\
+            path: \build-simh-release\
             pkg-ext: zip
             preset: release-windows
 
