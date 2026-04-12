@@ -15,8 +15,12 @@ jobs:
         include:
           - os: ubuntu-latest
             workflow-preset: release-linux
+            copy-command: cp ${{runner.workspace}}/build-simh-release/*.tar.gz ${{github.workspace}}
+            package-extension: tar.gz
           - os: windows-latest
             workflow-preset: release-windows
+            copy-command: copy ${{runner.workspace}}\build-simh-release\*.zip ${{github.workspace}}
+            package-extension: zip
 
     runs-on: ${{matrix.os}}
 
@@ -46,19 +50,11 @@ jobs:
       run: |
         cmake --version
         cmake --workflow --preset ${{matrix.workflow-preset}}
+        ${{matrix.copy-command}}
 
-    - name: Upload zip package artifacts
+    - name: Upload package artifacts
       uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-      if: ${{matrix.os == 'windows-latest'}}
       with:
         archive: false
-        path: ${{github.workspace}}/build-simh-release/*.zip
-        compression-level: 0
-
-    - name: Upload tgz package artifacts
-      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-      if: ${{matrix.os == 'ubuntu-latest'}}
-      with:
-        archive: false
-        path: ${{github.workspace}}/build-simh-release/*.tar.gz
+        path: ${{github.workspace}}/*.${{matrix.package-extension}}
         compression-level: 0
