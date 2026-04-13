@@ -14,7 +14,7 @@ jobs:
         include:
           - os: macos-latest
             cp: cp
-            path: /build-simh-release/
+            path: /build-simh-release-macos/
             pkg-ext: tar.gz
             preset: release-macos
           - os: ubuntu-latest
