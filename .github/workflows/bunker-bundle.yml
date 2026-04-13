@@ -52,11 +52,6 @@ jobs:
       with:
         cmake-version: '3.31'
 
-    - name: Bootstrap vcpkg unix
-      if: ${{matrix.os != 'windows-latest'}}
-      run: |
-        ${{github.workspace}}/vcpkg/bootstrap-vcpkg.sh
-
     - name: Run Workflow
       run: |
         cmake --version
