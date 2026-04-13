@@ -16,6 +16,7 @@ jobs:
             cp: cp
             path: /build-simh-release/
             pkg-ext: tar.gz
+            preset: release-linux
           - os: ubuntu-latest
             cp: cp
             path: /build-simh-release/
