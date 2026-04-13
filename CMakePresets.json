@@ -50,6 +50,12 @@
       "name": "release",
       "displayName": "Configure with release settings",
       "inherits": [ "settings", "release-build" ]
+    },
+    {
+      "name": "release-macos",
+      "displayName": "Configure with release settings",
+      "inherits": [ "settings", "release-build" ],
+      "generator": "Xcode"
     }
   ],
   "buildPresets": [
@@ -63,16 +69,27 @@
       "displayName": "Build with release settings",
       "configurePreset": "release",
       "configuration": "Release"
+    },
+    {
+      "name": "release-macos",
+      "displayName": "Build with macOS release settings",
+      "configurePreset": "release-macos",
+      "configuration": "Release"
     }
   ],
   "testPresets": [
     {
-      "name": "default",
-      "displayName": "Test with default settings",
-      "configurePreset": "default",
+      "name": "settings",
+      "hidden": true,
       "output": {
         "outputOnFailure": true
       }
+    },
+    {
+      "name": "default",
+      "displayName": "Test with default settings",
+      "configurePreset": "default",
+      "inherits": [ "settings" ]
     },
     {
       "name": "release",
@@ -80,14 +97,26 @@
       "description": "Skips some tests that are failing a diagnostic",
       "configurePreset": "release",
       "configuration": "Release",
-      "output": {
-        "outputOnFailure": true
-      },
+      "inherits": [ "settings" ],
       "filter": {
         "exclude": {
           "name": "simh-(vax[0-9]*|sel32)$"
         }
       }
+    },
+    {
+      "name": "release-macos",
+      "displayName": "Test with macOS release settings",
+      "description": "Skips some tests that are failing a diagnostic",
+      "configurePreset": "release-macos",
+      "configuration": "Release",
+      "inherits": [ "settings" ],
+      "filter": {
+        "exclude": {
+          "name": "simh-(vax[0-9]*|sel32)$"
+        }
+      }
+
     }
   ],
   "packagePresets": [
@@ -101,6 +130,12 @@
       "name": "release-linux",
       "displayName": "Package with release settings",
       "configurePreset": "release",
+      "generators": [ "TGZ" ]
+    },
+    {
+      "name": "release-macos",
+      "displayName": "Package with macOS release settings",
+      "configurePreset": "release-macos",
       "generators": [ "TGZ" ]
     },
     {
@@ -148,6 +183,28 @@
         {
           "type": "package",
           "name": "release-linux"
+        }
+      ]
+    },
+    {
+      "name": "release-macos",
+      "displayName": "Workflow with macOS Release settings: configure, build, test and package",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "release-macos"
+        },
+        {
+          "type": "build",
+          "name": "release-macos"
+        },
+        {
+          "type": "test",
+          "name": "release-macos"
+        },
+        {
+          "type": "package",
+          "name": "release-macos"
         }
       ]
     },
