@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ macos-26-intel, macos-latest, ubuntu-latest, windows-latest ]
+        os: [ macos-26-intel, macos-latest, ubuntu-22.04-arm, ubuntu-latest, windows-11-arm, windows-latest ]
         include:
           - os: macos-26-intel
             cp: cp
@@ -22,11 +22,21 @@ jobs:
             path: /build-simh-release-macos/
             pkg-ext: tar.gz
             preset: release-macos
+          - os: ubuntu-22.04-arm
+            cp: cp
+            path: /build-simh-release/
+            pkg-ext: tar.gz
+            preset: release-linux
           - os: ubuntu-latest
             cp: cp
             path: /build-simh-release/
             pkg-ext: tar.gz
             preset: release-linux
+          - os: windows-11-arm
+            cp: copy
+            path: \build-simh-release\
+            pkg-ext: zip
+            preset: release-windows
           - os: windows-latest
             cp: copy
             path: \build-simh-release\
