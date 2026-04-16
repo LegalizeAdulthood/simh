@@ -28,19 +28,39 @@ set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "runtime_support")
 # how to assemble it into a package file.
 set(CPACK_PACKAGE_VENDOR "The Open-SIMH project")
 
+# The desired form of the pcakage filename is
+# simh-<version>-<macOS|Linux|Windows>-<x86|x86_64|arm64>[-<vs2022[-xp]]
+# -or-
+# simh-<version>-${SIMH_PACKAGE_SUFFIX}
+# 
 if (SIMH_PACKAGE_SUFFIX)
     set(buildSuffix "${SIMH_PACKAGE_SUFFIX}")
 else ()
-    set(buildSuffix "")
-    if (WIN32)
-        if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-            list(APPEND buildSuffix "win64")
-        else ()
-            list(APPEND buildSuffix "win32")
-        endif ()
+    set(buildSuffix)
 
+    # Map the system name to our preferred value; do ordinary users know what "Darwin" means?
+    set(SIMH_TRANSLATE_SYSTEM_Darwin "macOS")
+    set(SIMH_SYSTEM_NAME "${SIMH_TRANSLATE_SYSTEM_${CMAKE_SYSTEM_NAME}}")
+    if("${SIMH_SYSTEM_NAME}" STREQUAL "")
+        set(SIMH_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}")
+    endif()
+    list(APPEND buildSuffix ${SIMH_SYSTEM_NAME})
+
+    # Map the values of CMAKE_SYSTEM_PROCESSOR to our preferred value.
+    set(SIMH_TRANSLATE_PROCESSOR_AMD64 "x86_64")
+    set(SIMH_TRANSLATE_PROCESSOR_ARM64 "arm64")
+    set(SIMH_TRANSLATE_PROCESSOR_aarch64 "arm64")
+    set(SIMH_SYSTEM_PROCESSOR "${SIMH_TRANSLATE_PROCESSOR_${CMAKE_SYSTEM_PROCESSOR}}")
+    if("${SIMH_SYSTEM_PROCESSOR}" STREQUAL "")
+        set(SIMH_SYSTEM_PROCESSOR "${CMAKE_SYSTEM_PROCESSOR}")
+    endif()
+    list(APPEND buildSuffix ${SIMH_SYSTEM_PROCESSOR})
+
+    if (WIN32)
         ## If using Visual Studio, append the compiler and toolkit:
-        if (CMAKE_GENERATOR MATCHES "Visual Studio 17 .*")
+        if (CMAKE_GENERATOR MATCHES "Visual Studio 18 .*")
+            list(APPEND buildSuffix "vs2026")
+        elseif (CMAKE_GENERATOR MATCHES "Visual Studio 17 .*")
             list(APPEND buildSuffix "vs2022")
         elseif (CMAKE_GENERATOR MATCHES "Visual Studio 16 .*")
             list(APPEND buildSuffix "vs2019")
@@ -52,8 +72,6 @@ else ()
         if (CMAKE_GENERATOR_TOOLSET MATCHES "v[0-9][0-9][0-9]_xp")
             string(APPEND buildSuffix "xp")
         endif ()
-    else ()
-        list(APPEND buildSuffix ${CMAKE_SYSTEM_NAME})
     endif ()
 
     list(JOIN buildSuffix "-" buildSuffix)
