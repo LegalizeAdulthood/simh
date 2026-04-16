@@ -22,6 +22,8 @@ if (NOT DEFINED VCPKG_TARGET_TRIPLET)
                 set(SIMH_VCPKG_ARCH "arm64")
             elseif(CMAKE_GENERATOR_PLATFORM MATCHES "[Aa][Rr][Mm]")
                 set(SIMH_VCPKG_ARCH "arm")
+            else()
+                message(STATUS "CMAKE_GENERATOR_PLATFORM (${CMAKE_GENERATOR_PLATFORM}) not recognized, defaulting to x64")
             endif()
 
             if (MSVC OR CMAKE_C_COMPILER_ID MATCHES ".*Clang")
