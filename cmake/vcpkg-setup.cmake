@@ -77,6 +77,7 @@ if (NOT DEFINED VCPKG_TARGET_TRIPLET)
         unset(use_triplet)
 
         set(ENV{VCPKG_DEFAULT_TRIPLET} ${VCPKG_TARGET_TRIPLET})
+        message(STATUS "Using VCPKG_TARGET_TRIPLET ${VCPKG_TARGET_TRIPLET}")
     endif ()
 endif ()
 
