@@ -171,7 +171,7 @@ class CMakeBuildSystem:
 
 
     def is_source(self, thing):
-        return thing.endswith('.c')
+        return thing.endswith(('.c', '.cpp'))
 
 
     def process_flag(self, comps, defs, process_func, depth):

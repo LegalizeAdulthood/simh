@@ -90,7 +90,7 @@ def walk_target_deps(target, defs, rules, actions, simulators, depth='', debug=0
         if debug >= 3:
             print('{0}expanded_deps {1}'.format(depth3, expanded_deps))
 
-        if any(filter(lambda f: f.endswith('.c'), expanded_deps)):
+        if any(filter(lambda f: f.endswith(('.c', '.cpp')), expanded_deps)):
             if debug >= 1:
                 print('{0}sim sources {1}'.format(depth3, deps))
             if debug >= 2:
